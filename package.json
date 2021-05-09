@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "jquery": "^3.6.0",
-    "neo4j-driver": "^4.2.3"
+    "neo4j-driver": "^4.2.3",
+    "neovis.js": "^1.6.0"
   },
   "devDependencies": {},
   "scripts": {
