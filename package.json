@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "jquery": "^3.6.0"
+    "jquery": "^3.6.0",
+    "neo4j-driver": "^4.2.3"
   },
   "devDependencies": {},
   "scripts": {
