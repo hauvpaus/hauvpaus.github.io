@@ -13,5 +13,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "neo4j-uri": "bolt://hauvpausneo4j.southcentralus.cloudapp.azure.com"
 }

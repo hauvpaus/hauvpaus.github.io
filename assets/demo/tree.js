@@ -1,22 +1,38 @@
-const neo4j = require('neo4j-driver')
-const uri = require('./package').neo4j-uri
-const driver = neo4j.driver(uri, neo4j.auth.basic(user, password))
-const session = driver.session()
-const personName = 'Alice'
+var viz;
 
-try {
-  const result = await session.run(
-    'CREATE (a:Person {name: $name}) RETURN a',
-    { name: personName }
-  )
+function drawTree() {
+    let un = "";
+    let pw = "";
 
-  const singleRecord = result.records[0]
-  const node = singleRecord.get(0)
+    fetch('./neo4j_config.json')
+    .then(response => response.json())
+    .then(data => {
+        var config = {
+        container_id: "viz",
+        server_url: "bolt://hauvpausneo4j.southcentralus.cloudapp.azure.com/",
+        server_user: data.un,
+        server_password: data.pw,
+        labels: {
+            //"Character": "name",
+            "Character": {
+                "caption": "name",
+                "size": "pagerank",
+                "community": "community"
+                //"sizeCypher": "MATCH (n) WHERE id(n) = {id} MATCH (n)-[r]-() RETURN sum(r.weight) AS c"
+            }
+        },
+        relationships: {
+            "INTERACTS": {
+                "thickness": "weight",
+                "caption": false
+            }
+        },
+        initial_cypher: "MATCH (n)-[r]->(m) RETURN n,r,m"
+    };
+    viz = new NeoVis.default(config);
+    viz.render();
+    console.log(viz);
+    })
 
-  console.log(node.properties.name)
-} finally {
-  await session.close()
+
 }
-
-// on application exit:
-await driver.close()
